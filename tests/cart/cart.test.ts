@@ -59,5 +59,15 @@ describe("Cart tests", () => {
             expect(state.items.length).toEqual(1);
             expect(state.items.find(p => p.product.id === sampleProductInstance1.id)?.quantity).toEqual(3)
         })
+
+        it('should return the subtotal, tax and total of the items added', () => {
+            const sampleProduct: Product = createProduct("sample", "sample product", 9.99);
+
+            const state = cart.addToCart(sampleProduct, 10);
+
+            expect(state.subTotal).toEqual(99.9);
+            expect(state.totalTax).toEqual(99.9*12.5/100);
+            expect(state.total).toEqual(state.subTotal + state.totalTax);
+        })
     });
 });

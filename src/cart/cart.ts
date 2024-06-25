@@ -12,9 +12,26 @@ export class Cart {
             existingItem.quantity += quantity;
             this._items.set(product.id, existingItem)
         } else {
-            this._items.set(product.id, {product, quantity});
+            this._items.set(product.id, { product, quantity });
         }
 
-        return { items: [...this._items.values()], subTotal: 0, totalTax: 0, total: 0 };
+        return this.getState();
+    }
+
+    private getSubTotal(items: Array<CartItem>): number {
+        return items.map(i => i.product.price * i.quantity).reduce((sum, current) => sum + current);
+    }
+
+    private calculateTax(subTotal: number): number {
+        const taxRate = 12.5
+        return subTotal * taxRate / 100
+    }
+
+    private getState(): CartState {
+        const cartItems = [...this._items.values()];
+        const subTotal = this.getSubTotal(cartItems);
+        const tax = this.calculateTax(subTotal);
+
+        return { items: cartItems, subTotal: subTotal, totalTax: tax, total: subTotal + tax };
     }
 }

@@ -1,6 +1,6 @@
 import { Product } from "./product"
 
-export const getProduct = async (url: string): Promise<{title: string, price: number}> => {
+export const getProduct = async (url: string): Promise<{[key: string]: string | number, title: string, price: number}> => {
     const response = await fetch(`https://equalexperts.github.io/backend-take-home-test-data/${url}.json`, {
         method: "GET",
         headers: {

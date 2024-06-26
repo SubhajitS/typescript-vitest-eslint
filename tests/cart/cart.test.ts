@@ -1,5 +1,6 @@
 import { Cart } from "../../src/cart";
 import { Product } from "../../src/products";
+import { TaxCalculator } from "../../src/tax";
 
 describe("Cart tests", () => {
     function createProduct(id: string, title: string, price: number): Product {
@@ -12,8 +13,9 @@ describe("Cart tests", () => {
 
     describe("Add to cart", () => {
         let cart: Cart;
+        const taxCalculator = new TaxCalculator();
         beforeEach(() => {
-            cart = new Cart();
+            cart = new Cart(taxCalculator);
         })
 
         it("should add single product to cart", () => {

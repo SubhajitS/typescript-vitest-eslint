@@ -1,9 +1,11 @@
 import { Product } from "../products";
-import { CartItem } from "./cart-item";
-import { CartState } from "./cart-state";
+import { TaxCalculator } from "../tax";
+import { CartItem, CartState } from "../cart";
 
 export class Cart {
     private _items: Map<string, CartItem> = new Map();
+
+    constructor(private _taxCalculator: TaxCalculator) {}
 
     addToCart(product: Product, quantity: number = 1): CartState {
         const productSymbol = Symbol()
@@ -22,15 +24,10 @@ export class Cart {
         return items.map(i => i.product.price * i.quantity).reduce((sum, current) => sum + current);
     }
 
-    private calculateTax(subTotal: number): number {
-        const taxRate = 12.5
-        return subTotal * taxRate / 100
-    }
-
     private getState(): CartState {
         const cartItems = [...this._items.values()];
         const subTotal = this.getSubTotal(cartItems);
-        const tax = this.calculateTax(subTotal);
+        const tax = this._taxCalculator.calculate(subTotal);
 
         return { items: cartItems, subTotal: subTotal, totalTax: tax, total: subTotal + tax };
     }

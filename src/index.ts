@@ -1,47 +1,25 @@
-// export const printName = (name: string) => {
-//   return `hello ${name}`;
-// };
+import { Cart } from "./cart";
+import { Catalog } from "./products";
+import { TaxCalculator } from "./tax";
 
-// console.log(printName("foobar"));
+const execute = async () => {
+  const catalog: Catalog = new Catalog();
+  const taxCalculator: TaxCalculator = new TaxCalculator();
+  const cart: Cart = new Cart(taxCalculator);
 
-class Car {
-  make: string;
-  model: string;
-  noOfWheels: number;
-  isElectric: boolean;
-  milage?: number;
+  const cheerios = await catalog.get("cheerios");
+  const cornflakes = await catalog.get("cornflakes");
+  const frosties = await catalog.get("frosties");
+  const shreddies = await catalog.get("shreddies");
+  const weetabix = await catalog.get("weetabix");
 
-  constructor(_make:string, _model: string, _noOfWheels: number,  _isElectric: boolean){
-    this.make = _make;
-    this.model = _model;
-    this.noOfWheels = _noOfWheels;
-    this.isElectric = _isElectric;
-  }
+  cart.addToCart(cheerios);
+  cart.addToCart(cornflakes);
+  cart.addToCart(frosties);
+  cart.addToCart(shreddies);
+  const cartState = cart.addToCart(weetabix);
+
+  console.log({cartState});
 }
 
-class Truck {
-  make: string
-  model: string
-  noOfWheels: number
-  carringCapacity: string
-  milage?: number;
-
-  constructor(_make:string, _model: string, _noOfWheels: number, _carringCapacity: string) {
-    this.make = _make;
-    this.model = _model;
-    this.noOfWheels = _noOfWheels;
-    this.carringCapacity = _carringCapacity;
-  }
-}
-
-function getMilage(vehicle: {make: string, model: string}): {make: string, model: string, milage: number} {
-  console.log(vehicle);
-  return {...vehicle, milage: 10}
-}
- const car = new Car("Ford", "Mustang", 4, false);
- const truck = new Truck("Ford", "F-150", 6, "flatbed");
-
- getMilage(car);
- getMilage(truck);
- const lambo: Car = {make: "Lamborgini", model: "Hurracan", noOfWheels: 4, isElectric: false}
- getMilage(lambo)
+execute();

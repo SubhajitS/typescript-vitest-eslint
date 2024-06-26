@@ -7,7 +7,7 @@ export const getProduct = async (url: string): Promise<{[key: string]: string | 
             "Content-Type": "application/json"
         }
     });
-    if (!response.ok) throw new Error(response.statusText)
+    if (!response.ok) throw new Error(`${response.statusText} : ${url}`)
 
     return response.json() as Promise<{title: string, price: number}>;
 }

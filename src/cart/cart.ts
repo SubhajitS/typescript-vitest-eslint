@@ -8,7 +8,8 @@ export class Cart {
     constructor(private _taxCalculator: TaxCalculator) {}
 
     addToCart(product: Product, quantity: number = 1): CartState {
-        const productSymbol = Symbol()
+        if(quantity<=0) throw new Error("Quantity must be more than one");
+        
         if (this._items.has(product.id)) {
             const existingItem = this._items.get(product.id)!;
             existingItem.quantity += quantity;

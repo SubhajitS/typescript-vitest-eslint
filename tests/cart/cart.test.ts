@@ -71,5 +71,11 @@ describe("Cart tests", () => {
             expect(state.totalTax).toEqual(99.9*12.5/100);
             expect(state.total).toEqual(state.subTotal + state.totalTax);
         })
+
+        it('should not add product to cart if quantity is less than or equal to zero', () => {
+            const sampleProduct: Product = createProduct("sample", "sample product", 9.99);
+
+            expect(() => cart.addToCart(sampleProduct, 0)).toThrowError("Quantity must be more than one");
+        })
     });
 });

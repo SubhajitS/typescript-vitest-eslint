@@ -1,6 +1,6 @@
-import { Cart } from "./cart";
-import { Catalog } from "./products";
-import { TaxCalculator } from "./tax";
+import { Cart } from "./core/cart";
+import { Catalog } from "./core/products";
+import { TaxCalculator } from "./core/tax";
 
 const execute = async () => {
   const catalog: Catalog = new Catalog();

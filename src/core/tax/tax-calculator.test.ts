@@ -1,4 +1,4 @@
-import { TaxCalculator } from "../../src/tax"
+import { TaxCalculator } from "."
 
 describe("Tax calculator", () => {
     let taxCalculator: TaxCalculator

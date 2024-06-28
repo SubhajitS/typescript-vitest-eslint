@@ -1,6 +1,6 @@
 import { Product } from "../products";
 import { TaxCalculator } from "../tax";
-import { CartItem, CartState } from "../cart";
+import { CartItem, CartState } from ".";
 
 export class Cart {
     private _items: Map<string, CartItem> = new Map();

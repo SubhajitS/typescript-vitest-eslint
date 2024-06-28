@@ -1,6 +1,6 @@
-import { Cart } from "../../src/cart";
-import { Product } from "../../src/products";
-import { TaxCalculator } from "../../src/tax";
+import { Cart } from ".";
+import { Product } from "../products";
+import { TaxCalculator } from "../tax";
 
 describe("Cart tests", () => {
     function createProduct(id: string, title: string, price: number): Product {
